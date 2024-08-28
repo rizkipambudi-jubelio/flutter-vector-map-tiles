@@ -86,11 +86,12 @@ class StyleUriMapper {
 
   SpriteUri _toSpriteUri(
       String spriteUri, Map<String, String> parameters, String suffix) {
+    final parsed = Uri.parse(spriteUri);
     return SpriteUri(
         json:
-            '$spriteUri$suffix.json?secure&${parameters.entries.map((e) => '${e.key}=${Uri.encodeQueryComponent(e.value)}').join('&')}',
+            '${parsed.origin}${parsed.path}$suffix.json?${parameters.entries.map((e) => '${e.key}=${Uri.encodeQueryComponent(e.value)}').join('&')}',
         image:
-            '$spriteUri$suffix.png?secure&${parameters.entries.map((e) => '${e.key}=${Uri.encodeQueryComponent(e.value)}').join('&')}');
+            '${parsed.origin}${parsed.path}$suffix.png?${parameters.entries.map((e) => '${e.key}=${Uri.encodeQueryComponent(e.value)}').join('&')}');
   }
 }
 
